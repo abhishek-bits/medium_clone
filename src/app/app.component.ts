@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,6 @@ import { RouterOutlet } from '@angular/router';
 
   // Imports were previously methioned in modules.
   // But now we can add them in components as well.
-  imports: [RouterOutlet]
+  imports: [RouterOutlet],
 })
-export class AppComponent {
-}
+export class AppComponent {}
