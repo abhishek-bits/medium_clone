@@ -38,3 +38,36 @@ It is a framework to build **Reactive applications** in Angular.
 
 The main problem with NgRx (Redux) is that we have to write a lot of Boilerplate.
 
+## Project Structure
+
+```
+/app
+    /article
+        /components
+        /store                                          -> Related of NgRx
+        /types                                          -> Types those are only visible within article feature
+        /service                                        -> Services those are only visisible within article feature.
+        article.routes
+    /globalFeed                                         -> Name of the feature or component
+        /components
+            /globalFeed                                 -> Name of the component (child component)
+        globalFeed.routes                               -> Routes for this component.
+    /shared                                             -> To share common content accorss all our features
+        /components
+            /backendErrorMessages
+                backendErrorMessages.component.ts
+            /popularTags
+                /types                                  -> Now everything within /types is not visible outside.
+                /store
+                popularTags.component.ts
+        /types
+            article.interface.ts
+        /services
+            article.services.ts
+    app.routes                                          -> To manage all our routes accross the application
+main.ts                                                 -> Entry point of our application
+```
+
+Features **article** and **globalFeed** can be initialized only via a route.
+
+But all shareable components (within `/shared` directory) can be initialized directly.
