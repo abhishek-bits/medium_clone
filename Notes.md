@@ -4,9 +4,7 @@
 
 ## Standalone Components
 
-Previously we had modules and components. That is why:
-    - `app.component.ts`
-    - `app.module.ts`
+Previously we had modules and components. That is why: - `app.component.ts` - `app.module.ts`
 
 and if we are creating some feature, then we had to create another module example and register separate components.
 
@@ -19,6 +17,7 @@ Inside Angular, we doesn't have a lot of things to manage our state. We just hav
 If we want two or more services to communicate to each other then we need to add dependency injections and write functions to return the requested response.
 
 The problem here is that, we don't have any strict rules what we write inside or how they are woking which essentially means all of our angular code is just:
+
 - some properties inside components.
 - some properties or methods inside services.
 
@@ -71,3 +70,7 @@ main.ts                                                 -> Entry point of our ap
 Features **article** and **globalFeed** can be initialized only via a route.
 
 But all shareable components (within `/shared` directory) can be initialized directly.
+
+## Why Lazy Loading:
+
+Inside a single routing: `app.routes.ts` we have bundled everything in this file. Thus, Lazy loading helps us to split our application and make every single chunk smaller and our application faster.
