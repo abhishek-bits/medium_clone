@@ -10,7 +10,11 @@ and if we are creating some feature, then we had to create another module exampl
 
 Now, Angular **Standalone components** were introduced. Thus, ng-modules are now optional which means we can create new features just with components without using modules. This requires much less code to create new features.
 
-## Why NgRx
+## NgRx
+
+Ref: [ngrx.io](https://ngrx.io/guide/store)
+
+### Why NgRx
 
 Inside Angular, we doesn't have a lot of things to manage our state. We just have components, services, etc.
 
@@ -21,7 +25,7 @@ The problem here is that, we don't have any strict rules what we write inside or
 - some properties inside components.
 - some properties or methods inside services.
 
-This means the code is not scalable and follows standard structure.
+This means the code is not scalable and does not follow standard structure.
 
 Solution:
 
@@ -29,13 +33,34 @@ Solution:
 
 But inside Angular, we are not using Redux directly, we are using [NgRx](https://ngrx.io/guide/store).
 
-## What is NgRx
+### What is NgRx
 
 NgRx is just a wrapper aroung to implement it correctly for Angular. Implementing Redux the way Angular likes it!
 
 It is a framework to build **Reactive applications** in Angular.
 
 The main problem with NgRx (Redux) is that we have to write a lot of Boilerplate.
+
+### NgRx State Management Lifecycle
+
+```mermaid
+flowchart
+SELECTOR --> COMPONENT;
+COMPONENT --> ACTION;
+ACTION <--> EFFECTS;
+EFFECTS <--> SERVICE;
+ACTION --> REDUCER;
+REDUCER --> STORE;
+STORE --> SELECTOR;
+```
+
+Whenever a **Component** does some **Action** e.g. user clicked on submit button then the **Action** _changes the State_ in the **Reducer** which changes the **Store** (which depicts our _global state_) and when our state is changed then the components who are _subscribed_ to this state will be notified about state changes.
+
+### Installing NgRx
+
+```shell
+npm install @ngrx/store
+```
 
 ## Project Structure
 
@@ -71,6 +96,6 @@ Features **article** and **globalFeed** can be initialized only via a route.
 
 But all shareable components (within `/shared` directory) can be initialized directly.
 
-## Why Lazy Loading:
+## Why Lazy Loading
 
 Inside a single routing: `app.routes.ts` we have bundled everything in this file. Thus, Lazy loading helps us to split our application and make every single chunk smaller and our application faster.
