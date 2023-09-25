@@ -6,12 +6,15 @@ import {provideState, provideStore} from '@ngrx/store';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {isDevMode} from '@angular/core';
 import {authFeatureKey, authReducer} from './app/auth/store/reducers';
+import {provideHttpClient} from '@angular/common/http';
 
 // root component here will be our app component.
 bootstrapApplication(AppComponent, {
   // This code will load our appRoutes
   // Thereafter we'll lazy load all our links.
   providers: [
+    // provide HTTP functionality to call APIs
+    provideHttpClient(),
     provideRouter(appRoutes),
     // We need to import provideStore() from NgRx
     provideStore(),

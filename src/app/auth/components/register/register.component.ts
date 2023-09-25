@@ -7,6 +7,7 @@ import {RouterLink} from '@angular/router';
 import {selectIsSubmitting} from '../../store/reducers';
 import {AuthStateInterface} from '../../types/authState.interface';
 import {CommonModule} from '@angular/common';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   // Instead of directly specifying our component
@@ -59,7 +60,10 @@ export class RegisterComponent {
     // Additionally, we specify the type of our State.
     // So that NgRx knows what properties do we have
     // inside our global state.
-    private store: Store<{auth: AuthStateInterface}>
+    // However, since, we are now using selectors
+    // that was generated using NgRx automatically (createFeature())
+    // we no longer need to specify the type for Store
+    private store: Store
   ) {}
 
   onSubmit(): void {
