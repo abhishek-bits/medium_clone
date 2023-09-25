@@ -110,7 +110,28 @@ Inside a single routing: `app.routes.ts` we have bundled everything in this file
 npm install @ngrx/store-devtools
 ```
 
--
+## What is Reducer
+
+This is just a function where we are defining how actions are changing our state.
+
+**NOTE**:
+
+We can't mutate `state`:
+
+```ts
+const authFeature = createFeature({
+  //...
+  reducer: createReducer(
+    //...
+
+    // Below arrow method simply returns a new state.
+    // as we have in-fact return a new object.
+    on(register, (state) => ({...state, isSubmitting: true}))
+  ),
+});
+```
+
+We can't do `state.[SOME_PROPERY] = [SOMETHING]`. Because, we have Redux and in fact Redux and Redux Dev-Tools are working in a way where we are always returning a new state thereby allowing Redux to compare the new state with the old state and thus understands that our state was changed.
 
 ## Points to Remember
 
