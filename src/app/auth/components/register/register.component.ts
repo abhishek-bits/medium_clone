@@ -4,6 +4,9 @@ import {Store} from '@ngrx/store';
 import {register} from '../../store/actions';
 import {RegisterRequestInterface} from '../../types/registerRequest.interface';
 import {RouterLink} from '@angular/router';
+import {selectIsSubmitting} from '../../store/selectors';
+import {AuthStateInterface} from '../../types/authState.interface';
+import {CommonModule} from '@angular/common';
 
 @Component({
   // Instead of directly specifying our component
@@ -28,6 +31,9 @@ import {RouterLink} from '@angular/router';
     // our links won't come on the browser so
     // we'll import RouterLink to have that feature.
     RouterLink,
+
+    // To allow observable subscription using aync pipe
+    CommonModule,
   ],
 })
 export class RegisterComponent {
@@ -39,12 +45,21 @@ export class RegisterComponent {
     password: ['', Validators.required],
   });
 
+  // '$' specifies we are getting our data as a stream
+  // This becomes an observable which we can subscribe to
+  // and every single change that happens in State
+  // will change this property.
+  isSubmitting$ = this.store.select(selectIsSubmitting);
+
   // Inject FormBuilder via constructor
   constructor(
     private formBuilder: FormBuilder,
     // Inject NgRx store so that
     // we can register our actions.
-    private store: Store
+    // Additionally, we specify the type of our State.
+    // So that NgRx knows what properties do we have
+    // inside our global state.
+    private store: Store<{auth: AuthStateInterface}>
   ) {}
 
   onSubmit(): void {
