@@ -35,7 +35,7 @@ But inside Angular, we are not using Redux directly, we are using [NgRx](https:/
 
 ### What is NgRx
 
-NgRx is just a wrapper aroung to implement it correctly for Angular. Implementing Redux the way Angular likes it!
+NgRx is just a wrapper around Redux to implement it correctly for Angular. _Implementing Redux the way Angular likes it_!
 
 It is a framework to build **Reactive applications** in Angular.
 
@@ -99,3 +99,19 @@ But all shareable components (within `/shared` directory) can be initialized dir
 ## Why Lazy Loading
 
 Inside a single routing: `app.routes.ts` we have bundled everything in this file. Thus, Lazy loading helps us to split our application and make every single chunk smaller and our application faster.
+
+## Development Tools
+
+- Install [Redux Dev Tools](https://chrome.google.com/webstore/detail/redux-devtools/) Chrome extension.
+
+- Install new **NgRx** library: [store-devtools](https://ngrx.io/guide/store-devtools)
+
+```shell
+npm install @ngrx/store-devtools
+```
+
+-
+
+## Points to Remember
+
+- If we want to include links on our web-pages we must import `RouterLink` in our component.

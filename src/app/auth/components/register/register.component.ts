@@ -3,6 +3,7 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {register} from '../../store/actions';
 import {RegisterRequestInterface} from '../../types/registerRequest.interface';
+import {RouterLink} from '@angular/router';
 
 @Component({
   // Instead of directly specifying our component
@@ -16,10 +17,18 @@ import {RegisterRequestInterface} from '../../types/registerRequest.interface';
   // in all our components because we want to use
   // all our components without modules.
   standalone: true,
-  // We'll import ReactiveFormsModule to get the
-  // [formGroup] property for our form
-  // and specify formControlName
-  imports: [ReactiveFormsModule],
+
+  imports: [
+    // We'll import ReactiveFormsModule to get the
+    // [formGroup] property for our form
+    // and specify formControlName
+    ReactiveFormsModule,
+
+    // Since, we are using StandAlone components,
+    // our links won't come on the browser so
+    // we'll import RouterLink to have that feature.
+    RouterLink,
+  ],
 })
 export class RegisterComponent {
   // All our fields in the form will be defined.
