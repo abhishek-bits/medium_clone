@@ -7,6 +7,10 @@ const initialState: AuthStateInterface = {
   isSubmitting: false,
 };
 
+// Create Feature creates for us:
+// - a feature key (name)
+// - a reducer
+// - a bunch of selectors
 const authFeature = createFeature({
   name: 'auth',
   reducer: createReducer(
@@ -18,4 +22,9 @@ const authFeature = createFeature({
 });
 
 // Here we have used aliasing to sepcify the object parameters
-export const {name: authFeatureKey, reducer: authReducer} = authFeature;
+export const {
+  name: authFeatureKey,
+  reducer: authReducer,
+  // create selector for variable isSubmitting
+  selectIsSubmitting,
+} = authFeature;
