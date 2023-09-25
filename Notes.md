@@ -56,10 +56,33 @@ STORE --> SELECTOR;
 
 Whenever a **Component** does some **Action** e.g. user clicked on submit button then the **Action** _changes the State_ in the **Reducer** which changes the **Store** (which depicts our _global state_) and when our state is changed then the components who are _subscribed_ to this state will be notified about state changes.
 
+#### What are Effects?
+
+```mermaid
+flowchart
+SELECTOR --> COMPONENT;
+COMPONENT --> ACTION;
+ACTION --> REDUCER;
+REDUCER --> STORE;
+STORE --> SELECTOR;
+```
+
+This is the part of **NgRx** which is synchronous and works without **Effects**. Essentially Effects are not needed for _synchronous actions_ inside NgRx. Effects is an additional library for NgRx in order to make API calls to Backend. We need Effects when we have background operations to be done. Thus, in order for Effects to work, we need to have the structure:
+
+- **Start**: API to start with
+- **Success**: Success state of this API
+- **Failure**: Failure state of thie API
+
 ### Installing NgRx
 
 ```shell
 npm install @ngrx/store
+```
+
+### Installing Effects
+
+```shell
+npm install @ngrx/effects@latest
 ```
 
 ## Project Structure

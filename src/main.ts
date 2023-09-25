@@ -7,6 +7,8 @@ import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {isDevMode} from '@angular/core';
 import {authFeatureKey, authReducer} from './app/auth/store/reducers';
 import {provideHttpClient} from '@angular/common/http';
+import {provideEffects} from '@ngrx/effects';
+import * as authEffects from './app/auth/store/effects';
 
 // root component here will be our app component.
 bootstrapApplication(AppComponent, {
@@ -35,5 +37,8 @@ bootstrapApplication(AppComponent, {
     // Because authentication will be shared amoing
     // multiple other components.
     provideState(authFeatureKey, authReducer),
+    // Register effects to our application
+    // so that our effect will listen to our actions
+    provideEffects(authEffects),
   ],
 });

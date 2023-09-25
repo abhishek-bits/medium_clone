@@ -1,6 +1,6 @@
 import {createFeature, createReducer, on} from '@ngrx/store';
 import {AuthStateInterface} from '../types/authState.interface';
-import {register} from './actions';
+import {authActions} from './actions';
 
 // slice of data for our auth feature.
 const initialState: AuthStateInterface = {
@@ -17,7 +17,7 @@ const authFeature = createFeature({
     initialState,
     // Once the submit button is clicked,
     // change the isSubmitting property to false.
-    on(register, (state) => ({...state, isSubmitting: true}))
+    on(authActions.register, (state) => ({...state, isSubmitting: true}))
   ),
 });
 

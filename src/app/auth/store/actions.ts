@@ -1,5 +1,6 @@
-import {createAction, props} from '@ngrx/store';
+import {createAction, createActionGroup, emptyProps, props} from '@ngrx/store';
 import {RegisterRequestInterface} from '../types/registerRequest.interface';
+import {UserInterface} from 'src/app/shared/types/user.interface';
 
 // Create Register Action
 // [Auth] Register ? Why are we doing like this?
@@ -16,6 +17,7 @@ import {RegisterRequestInterface} from '../types/registerRequest.interface';
 // within the component named "Auth".
 // In other words, all actions which were written for Auth feature
 // we need to prefix them with [Auth]
+/*
 export const register = createAction(
   '[Auth] Register',
 
@@ -25,3 +27,18 @@ export const register = createAction(
   // Here, the type is an object which has a nested object of type RegisterRequestInterface
   props<{request: RegisterRequestInterface}>()
 );
+*/
+
+// Effects Configuration :-
+// Instead of creating different actions
+// each for register, registerSuccess, and registerFailure,
+// we'll use NgRx to write better code.
+export const authActions = createActionGroup({
+  // Namespace [Auth] that we wrote in our stream
+  source: 'auth',
+  events: {
+    Register: props<{request: RegisterRequestInterface}>(),
+    'Register Success': props<{user: UserInterface}>(),
+    'Register Failure': emptyProps(),
+  },
+});
