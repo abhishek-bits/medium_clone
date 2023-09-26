@@ -55,3 +55,23 @@ export const registerEffect = createEffect(
   },
   {functional: true}
 );
+
+// We need to redirect to Home page on successfull registration
+// So we create a new Effect which will
+// - Listen to Register Success and when it happens,
+// - Redirects us to Home Page.
+export const redirectAfterRegisterEffect = createEffect(
+  (actions$ = inject(Actions), router = inject(Router)) => {
+    return actions$.pipe(
+      // We are waiting here for Success
+      ofType(authActions.registerSuccess),
+      tap(() => {
+        router.navigateByUrl('/');
+      })
+    );
+  },
+  // dispatch is set to false, because
+  // we do not want this effect to dispatch anything
+  // i.e. it will not have any return type
+  {functional: true, dispatch: false}
+);
