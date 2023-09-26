@@ -4,10 +4,12 @@ import {Store} from '@ngrx/store';
 import {authActions} from '../../store/actions';
 import {RegisterRequestInterface} from '../../types/registerRequest.interface';
 import {RouterLink} from '@angular/router';
-import {selectIsSubmitting} from '../../store/reducers';
+import {selectError, selectIsSubmitting} from '../../store/reducers';
 import {AuthStateInterface} from '../../types/authState.interface';
 import {CommonModule} from '@angular/common';
 import {AuthService} from '../../services/auth.service';
+import {combineLatest} from 'rxjs';
+import {BackendErrorMessages} from '../../../shared/components/backendErrorMessages/backendErrorMessages.component';
 
 @Component({
   // Instead of directly specifying our component
@@ -21,20 +23,18 @@ import {AuthService} from '../../services/auth.service';
   // in all our components because we want to use
   // all our components without modules.
   standalone: true,
-
   imports: [
     // We'll import ReactiveFormsModule to get the
     // [formGroup] property for our form
     // and specify formControlName
     ReactiveFormsModule,
-
     // Since, we are using StandAlone components,
     // our links won't come on the browser so
     // we'll import RouterLink to have that feature.
     RouterLink,
-
     // To allow observable subscription using aync pipe
     CommonModule,
+    BackendErrorMessages,
   ],
 })
 export class RegisterComponent {
@@ -46,11 +46,28 @@ export class RegisterComponent {
     password: ['', Validators.required],
   });
 
+  /*
   // '$' specifies we are getting our data as a stream
   // This becomes an observable which we can subscribe to
   // and every single change that happens in State
   // will change this property.
   isSubmitting$ = this.store.select(selectIsSubmitting);
+
+  // Add observable for Backend Errors
+  backendError$ = this.store.select(selectError);
+  */
+
+  // Imagine that we have lot of observables.
+  // With that, we will have separate async pipe for every observable.
+  // This is why it makes a lot of sense to group all these selects
+  // with combineLatest. This will help us to scale our code indefinetely.
+  // combineLatest simply resolves every single stream with a value
+  // which means we will have every single value from every single
+  // observable inside the data property directly like local property.
+  data$ = combineLatest({
+    isSubmitting: this.store.select(selectIsSubmitting),
+    backendError: this.store.select(selectError),
+  });
 
   // Inject FormBuilder via constructor
   constructor(

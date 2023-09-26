@@ -1,55 +1,68 @@
-=={{ isSubmitting$ | async }}==
-<div class="auth-page">
-  <div class="container-page">
-    <div class="row">
-      <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">Sign Up</h1>
-        <p class="text-xs-center">
-          Already have an account?
-          <a routerLink="/login">Login</a>
-        </p>
-        BACKEND ERRORS HERE
-        <!-- 
+<!-- 
+  For the whole ng-container block,
+  "as data" will create a local property data
+  which means we have to write just a single
+  async pipe for the whole register component.
+-->
+<ng-container *ngIf="data$ | async as data">
+  <div class="auth-page">
+    <div class="container-page">
+      <div class="row">
+        <div class="col-md-6 offset-md-3 col-xs-12">
+          <h1 class="text-xs-center">Sign Up</h1>
+          <p class="text-xs-center">
+            Already have an account?
+            <a routerLink="/login">Login</a>
+          </p>
+          <!-- 
+            Anything within [] is an input variable for that block 
+          -->
+          <mc-backend-error-messages 
+            *ngIf="data.backendError"
+            [backendErrors]="data.backendError" 
+          ></mc-backend-error-messages>
+          <!-- 
             Here we'll bind our form (as specified in component.ts) 
             into our HTML
-        -->
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <fieldset class="form-group">
-            <input
-              type="text"
-              class="form-control form-control-lg"
-              placeholder="Username"
-              formControlName="username"
-            />
-            <!-- bind the rules as well -->
-          </fieldset>
-          <fieldset class="form-group">
-            <input
-              type="email"
-              class="form-control form-control-lg"
-              placeholder="Email"
-              formControlName="email"
-            />
-            <!-- bind the rules as well -->
-          </fieldset>
-          <fieldset class="form-group">
-            <input
-              type="password"
-              class="form-control form-control-lg"
-              placeholder="Password"
-              formControlName="password"
-            />
-            <!-- bind the rules as well -->
-          </fieldset>
-          <button
-            type="sumit"
-            class="btn btn-lg btn-primary pull-xs-right"
-            [disabled]="isSubmitting$ | async"
-          >
-            Sign Up
-          </button>
-        </form>
+          -->
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <fieldset class="form-group">
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                placeholder="Username"
+                formControlName="username"
+              />
+              <!-- bind the rules as well -->
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                type="email"
+                class="form-control form-control-lg"
+                placeholder="Email"
+                formControlName="email"
+              />
+              <!-- bind the rules as well -->
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                type="password"
+                class="form-control form-control-lg"
+                placeholder="Password"
+                formControlName="password"
+              />
+              <!-- bind the rules as well -->
+            </fieldset>
+            <button
+              type="sumit"
+              class="btn btn-lg btn-primary pull-xs-right"
+              [disabled]="data.isSubmitting"
+            >
+              Sign Up
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ng-container>
