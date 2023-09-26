@@ -1,6 +1,7 @@
 import {createAction, createActionGroup, emptyProps, props} from '@ngrx/store';
 import {RegisterRequestInterface} from '../types/registerRequest.interface';
 import {UserInterface} from 'src/app/shared/types/user.interface';
+import {BackendErrorInterface} from 'src/app/shared/types/backendError.interface';
 
 // Create Register Action
 // [Auth] Register ? Why are we doing like this?
@@ -39,6 +40,6 @@ export const authActions = createActionGroup({
   events: {
     Register: props<{request: RegisterRequestInterface}>(),
     'Register Success': props<{user: UserInterface}>(),
-    'Register Failure': emptyProps(),
+    'Register Failure': props<{error: BackendErrorInterface}>(),
   },
 });
