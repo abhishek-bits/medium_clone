@@ -12,7 +12,7 @@ export class BackendErrorMessages {
   // We have an input value to our HTML
   @Input() backendErrors: BackendErrorInterface = {};
 
-  // Parsing backend error to a propert HTML format
+  // Parsing backend error to a proper HTML format
   errorMessages: string[] = [];
 
   ngOnInit(): void {

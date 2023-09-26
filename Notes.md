@@ -156,6 +156,16 @@ const authFeature = createFeature({
 
 We can't do `state.[SOME_PROPERY] = [SOMETHING]`. Because, we have Redux and in fact Redux and Redux Dev-Tools are working in a way where we are always returning a new state thereby allowing Redux to compare the new state with the old state and thus understands that our state was changed.
 
+## Add Persistence Service
+
+Now that we are able to successfully register, we have got the Authentication Token which we can use to navigate through web components and get access to the requested services. But how do we achieve that?
+
+We must save our token (in some local storage) and then every single time when we are reloading the page and we are making new request, we must attach this token to headers which means every single time, the Backend gets our API call. It knows, to which user, our request belongs.
+
+**NOTE**:
+
+We should never store such tokens in reducer. Reducer's job is simply to manage the state.
+
 ## Points to Remember
 
 - If we want to include links on our web-pages we must import `RouterLink` in our component.
